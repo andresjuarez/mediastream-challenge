@@ -26,6 +26,16 @@ const User = require('./models/User');
 
 // Setup Express.js app
 const app = express();
+app.get('/users', (req, res, next)=>{
+	let schema = User.schema; 
+	let model = User.model;
+	res.writeHead(200, {
+        'Content-Type': 'text/csv',
+        'Content-Disposition': 'attachment; filename=sample.csv'
+    });
+
+	model.find({}).sort({ _id : 1 }).csv(res);
+});
 
 // TODO
 

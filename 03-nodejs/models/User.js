@@ -1,8 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose   = require('mongoose');
+var mongoose_csv = require('mongoose-csv');
 
-const User = mongoose.model('User', {
-  name: String,
-  email: String,
+const UserSchema = new mongoose.Schema({
+  name  : {type: String},
+  email : {type: String},
 });
 
-module.exports = User;
+UserSchema.plugin(mongoose_csv);
+
+const User = mongoose.model('User', UserSchema);
+
+module.exports = {model: User, schema: UserSchema};
